@@ -1,6 +1,107 @@
 $(function () {
 
-  const book   = $('#book');
+  // ── Password & Letter ──
+  const PASSWORD = '021009'; // ganti sesuai keinginan
+  const MESSAGE  =
+    'selamat ulang tahun yang ke-16,\n\n' +
+    'semoga hari ini jadi hari yang paling indah buat kamu. ' +
+    'scrapbook ini dibuat dengan sepenuh hati, ' +
+    'berisi momen-momen yang selalu bikin kita senyum. ' +
+    'semoga kamu selalu bahagia, sehat, dan terus bersinar.\n\n' +
+    'with love ♥';
+
+  // Typewriter effect
+  function typewriter(el, text, speed, cb) {
+    let i = 0;
+    el.textContent = '';
+    const lines = text.split('\n');
+    let flat = '';
+    lines.forEach((l, idx) => { flat += l + (idx < lines.length - 1 ? '\n' : ''); });
+    const chars = flat.split('');
+    function next() {
+      if (i >= chars.length) { if (cb) cb(); return; }
+      const ch = chars[i++];
+      if (ch === '\n') {
+        el.appendChild(document.createElement('br'));
+      } else {
+        el.appendChild(document.createTextNode(ch));
+      }
+      setTimeout(next, speed);
+    }
+    next();
+  }
+
+  function showLetter() {
+    const gate   = document.getElementById('gate');
+    const letter = document.getElementById('letter');
+
+    gate.classList.add('fade-out');
+    setTimeout(() => {
+      gate.style.display = 'none';
+      letter.style.opacity = '1';
+      letter.style.pointerEvents = 'auto';
+      typewriter(document.getElementById('letterBody'), MESSAGE, 28);
+    }, 600);
+  }
+
+  function openFlipbook() {
+    const letter = document.getElementById('letter');
+    letter.classList.add('fade-out');
+    setTimeout(() => { letter.style.display = 'none'; }, 600);
+  }
+
+  // Cek password
+  function checkPassword() {
+    const boxes = document.querySelectorAll('.gate-box');
+    const val   = Array.from(boxes).map(b => b.value).join('');
+    const err   = document.getElementById('gateError');
+    if (val === PASSWORD) {
+      err.classList.remove('show');
+      showLetter();
+    } else {
+      err.classList.add('show');
+      boxes.forEach(b => { b.value = ''; b.classList.remove('filled'); });
+      boxes[0].focus();
+    }
+  }
+
+  // 6 kotak: auto focus next, backspace, auto submit
+  const boxes = document.querySelectorAll('.gate-box');
+  boxes.forEach((box, i) => {
+    box.addEventListener('input', () => {
+      box.value = box.value.replace(/[^0-9]/g, '').slice(-1);
+      if (box.value) {
+        box.classList.add('filled');
+        if (i < boxes.length - 1) boxes[i + 1].focus();
+        else checkPassword();
+      } else {
+        box.classList.remove('filled');
+      }
+    });
+    box.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !box.value && i > 0) {
+        boxes[i - 1].value = '';
+        boxes[i - 1].classList.remove('filled');
+        boxes[i - 1].focus();
+      }
+    });
+    box.addEventListener('paste', e => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
+      boxes.forEach((b, j) => {
+        b.value = text[j] || '';
+        b.classList.toggle('filled', !!b.value);
+      });
+      if (text.length >= 6) checkPassword();
+      else boxes[Math.min(text.length, 5)].focus();
+    });
+  });
+  boxes[0].focus();
+
+  document.getElementById('gateBtn').addEventListener('click', checkPassword);
+  document.getElementById('letterBtn').addEventListener('click', openFlipbook);
+
+  // ── Flipbook ──
   // Total halaman: 1 dummy + 12 spread × 2 = 25
   // Spread konten: hal 2-23, spread looping: hal 24-25
   const FIRST  = 2;   // halaman pertama konten (kiri=11Blk, kanan=1Dpn)

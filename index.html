@@ -8,6 +8,33 @@
 </head>
 <body>
 
+  <!-- ── Password Gate ── -->
+  <div id="gate">
+    <div class="gate-card">
+      <p class="gate-label">✦ enter the secret ✦</p>
+      <p class="gate-clue">tanggal lahir pacarnya qaysaraqeel</p>
+      <div class="gate-boxes" id="gateBoxes">
+        <input class="gate-box" type="password" inputmode="numeric" maxlength="1">
+        <input class="gate-box" type="password" inputmode="numeric" maxlength="1">
+        <input class="gate-box" type="password" inputmode="numeric" maxlength="1">
+        <input class="gate-box" type="password" inputmode="numeric" maxlength="1">
+        <input class="gate-box" type="password" inputmode="numeric" maxlength="1">
+        <input class="gate-box" type="password" inputmode="numeric" maxlength="1">
+      </div>
+      <p class="gate-error" id="gateError">wrong password, try again.</p>
+      <button id="gateBtn">unlock</button>
+    </div>
+  </div>
+
+  <!-- ── Letter Popup ── -->
+  <div id="letter">
+    <div class="letter-card">
+      <p class="letter-to">for quinsachi,</p>
+      <p class="letter-body" id="letterBody"></p>
+      <button id="letterBtn">Open the Scrapbook ✦</button>
+    </div>
+  </div>
+
   <div id="loading">
     <div class="spinner"></div>
   </div>

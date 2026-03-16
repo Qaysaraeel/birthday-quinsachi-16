@@ -14,6 +14,169 @@ html, body {
   align-items: center;
 }
 
+/* ── Gate & Letter overlay ── */
+#gate, #letter {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background: radial-gradient(ellipse at center, #2d2d44 0%, #0f0f1a 100%);
+  transition: opacity 0.6s ease;
+}
+
+#letter { opacity: 0; pointer-events: none; }
+
+#gate.fade-out,
+#letter.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Gate card ── */
+.gate-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: floatIn 0.8s ease forwards;
+}
+
+.gate-label {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: lowercase;
+  margin: 0;
+}
+
+.gate-clue {
+  color: rgba(255,255,255,0.25);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  font-style: italic;
+  margin: 0;
+}
+
+.gate-boxes {
+  display: flex;
+  gap: 10px;
+}
+
+.gate-box {
+  width: 44px;
+  height: 52px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.4rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  caret-color: transparent;
+}
+
+.gate-box:focus {
+  border-color: rgba(255,255,255,0.7);
+  box-shadow: 0 0 12px rgba(255,255,255,0.1);
+}
+
+.gate-box.filled {
+  border-color: rgba(255,255,255,0.45);
+}
+
+.gate-error {
+  color: #e07070;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gate-error.show { opacity: 1; }
+
+#gateBtn {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: lowercase;
+  padding: 10px 32px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#gateBtn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* ── Letter card ── */
+.letter-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 480px;
+  width: 90%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 48px 40px;
+  text-align: center;
+  animation: floatIn 0.8s ease forwards;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.letter-to {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  margin: 0;
+  text-transform: lowercase;
+}
+
+.letter-body {
+  color: rgba(255,255,255,0.85);
+  font-size: 1rem;
+  line-height: 1.9;
+  margin: 0;
+  min-height: 80px;
+  font-style: italic;
+}
+
+#letterBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  padding: 12px 36px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 8px;
+}
+
+#letterBtn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border-color: rgba(255,255,255,0.6);
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Loading ── */
 #loading {
   position: fixed;
