@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Scrapbook</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="scene">
+    <button class="btn-nav btn-prev" id="btnPrev">&#8249;</button>
+
+    <div class="book-shadow"></div>
+    <div class="book-container">
+      <div class="spine"></div>
+      <div id="book">
+
+        <!-- Halaman 1: dummy tak terlihat -->
+        <div class="page blank"></div>
+
+        <!-- Spread 1 (hal 2-3): kiri=11 Belakang, kanan=1 Depan -->
+        <div class="page"><img src="page/11 Belakang.png" alt=""></div>
+        <div class="page"><img src="page/1 Depan.png"     alt=""></div>
+
+        <!-- Spread 2 (hal 4-5) -->
+        <div class="page"><img src="page/1 Belakang.png"  alt=""></div>
+        <div class="page"><img src="page/2 Depan.png"     alt=""></div>
+
+        <!-- Spread 3 (hal 6-7) -->
+        <div class="page"><img src="page/2 Belakang.png"  alt=""></div>
+        <div class="page"><img src="page/3 Depan.png"     alt=""></div>
+
+        <!-- Spread 4 (hal 8-9) -->
+        <div class="page"><img src="page/3 Belakang.png"  alt=""></div>
+        <div class="page"><img src="page/4 Depan.png"     alt=""></div>
+
+        <!-- Spread 5 (hal 10-11) -->
+        <div class="page"><img src="page/4 Belakang.png"  alt=""></div>
+        <div class="page"><img src="page/5 Depan.png"     alt=""></div>
+
+        <!-- Spread 6 (hal 12-13) -->
+        <div class="page"><img src="page/5 Belakang.png"  alt=""></div>
+        <div class="page"><img src="page/6 Depan.png"     alt=""></div>
+
+        <!-- Spread 7 (hal 14-15) -->
+        <div class="page"><img src="page/6 Belakang.png"  alt=""></div>
+        <div class="page"><img src="page/7 Depan.png"     alt=""></div>
+
+        <!-- Spread 8 (hal 16-17) -->
+        <div class="page"><img src="page/7 Belakang.png"  alt=""></div>
+        <div class="page"><img src="page/8 Depan.png"     alt=""></div>
+
+        <!-- Spread 9 (hal 18-19) -->
+        <div class="page"><img src="page/8 Belakang.png"  alt=""></div>
+        <div class="page"><img src="page/9 Depan.png"     alt=""></div>
+
+        <!-- Spread 10 (hal 20-21) -->
+        <div class="page"><img src="page/9 Belakang.png"  alt=""></div>
+        <div class="page"><img src="page/10 Depan.png"    alt=""></div>
+
+        <!-- Spread 11 (hal 22-23) -->
+        <div class="page"><img src="page/10 Belakang.png" alt=""></div>
+        <div class="page"><img src="page/11 Depan.png"    alt=""></div>
+
+        <!-- Spread 12 (hal 24-25): looping = sama dengan spread 1 -->
+        <div class="page"><img src="page/11 Belakang.png" alt=""></div>
+        <div class="page"><img src="page/1 Depan.png"     alt=""></div>
+
+      </div>
+    </div>
+
+    <button class="btn-nav btn-next" id="btnNext">&#8250;</button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="turn.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
