@@ -138,65 +138,19 @@ html, body {
 .btn-prev { margin-right: 16px; }
 .btn-next { margin-left:  16px; }
 
-/* Sembunyikan tombol di mobile, pakai swipe */
-@media (max-width: 540px) {
-  .btn-nav { display: none; }
-}
-
-/* ── Nav areas ── */
-.nav-area {
-  position: absolute;
-  top: 0;
-  width: 20%;
-  height: 100%;
-  z-index: 5;
-  cursor: pointer;
-}
-.nav-left  { left: 0; }
-.nav-right { right: 0; }
-
-/* ── Responsive tablet ── */
+/* ── Responsive ── */
 @media (max-width: 900px) {
   #book {
-    width: 76vw !important;
-    height: calc(38vw * 1.414) !important;
+    width: 96vw !important;
+    height: calc(48vw * 1.414) !important;
   }
-}
-
-/* ── Responsive mobile: single page ── */
-@media (max-width: 540px) {
-  html, body {
-    align-items: center;
-  }
-
-  .scene {
-    flex-direction: column;
-    gap: 20px;
-    padding: 16px 0;
-  }
-
-  .book-container {
-    box-shadow:
-      0 8px 24px rgba(0,0,0,0.6),
-      0 2px 8px rgba(0,0,0,0.4);
-    border-radius: 4px;
-  }
-
-  #book {
-    width: 88vw !important;
-    height: calc(88vw * 1.414) !important;
-  }
-
+  .btn-nav { display: none; }
   .spine { display: none; }
   .book-shadow { display: none; }
-  .btn-nav { display: none; }
-
-  /* Swipe hint */
   .scene::after {
-    content: '← geser →';
+    content: '\2190 geser \2192';
     color: rgba(255,255,255,0.35);
     font-size: 0.75rem;
     letter-spacing: 0.1em;
-    text-align: center;
   }
 }
