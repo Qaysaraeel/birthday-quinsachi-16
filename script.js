@@ -1,14 +1,13 @@
 $(function () {
 
   // ── Password & Letter ──
-  const PASSWORD = '021009'; // ganti sesuai keinginan
-  const MESSAGE  =
-    'selamat ulang tahun yang ke-16,\n\n' +
-    'semoga hari ini jadi hari yang paling indah buat kamu. ' +
-    'scrapbook ini dibuat dengan sepenuh hati, ' +
-    'berisi momen-momen yang selalu bikin kita senyum. ' +
-    'semoga kamu selalu bahagia, sehat, dan terus bersinar.\n\n' +
-    'with love ♥';
+  const PASSWORD = '021009';
+
+const MESSAGE =
+  'selamattt ulang tahunn sayangkuu cintaakuu\n\n' +
+  'maaf ya kado yang ini terlambat, aku bikinnya susah banget loo (meskipun di bantu gpt sih hehe) hampir dua mingguan ak bikinnyah, soalnyaa  jadwal ak padet gegara lomba jagoss. kemarin aku ngerasa ada yang kurang aja si  pas ngasih kado kamu, terus aku kepikiran deh buat kaya gini biar kesimpenn terus selamanyaaa, fyi ini ak bikinnyah pakai pc sama laptop sekolah hehe soalnya laptop ak kentank, hehe semoga kamu sukakk yaa! sekali lagi selamat ulang tahun mylovvvvv';
+  '- qaesyaar\n' +
+  '16/10/25';
 
   // Typewriter effect
   function typewriter(el, text, speed, cb) {
@@ -47,7 +46,11 @@ $(function () {
   function openFlipbook() {
     const letter = document.getElementById('letter');
     letter.classList.add('fade-out');
-    setTimeout(() => { letter.style.display = 'none'; }, 600);
+    setTimeout(() => {
+      letter.style.display = 'none';
+      $('#loading').addClass('hidden');
+      document.querySelector('.scene').style.visibility = 'visible';
+    }, 600);
   }
 
   // Cek password
