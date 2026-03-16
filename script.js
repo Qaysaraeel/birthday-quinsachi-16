@@ -2,29 +2,27 @@ $(function () {
 
   // ── Password & Letter ──
   const PASSWORD = '021009';
-
-const MESSAGE =
-  'selamattt ulang tahunn sayangkuu cintaakuu\n\n' +
-  'maaf ya kado yang ini terlambat, aku bikinnya susah banget loo (meskipun di bantu gpt sih hehe) hampir dua mingguan ak bikinnyah, soalnyaa  jadwal ak padet gegara lomba jagoss. kemarin aku ngerasa ada yang kurang aja si  pas ngasih kado kamu, terus aku kepikiran deh buat kaya gini biar kesimpenn terus selamanyaaa, fyi ini ak bikinnyah pakai pc sama laptop sekolah hehe soalnya laptop ak kentank, hehe semoga kamu sukakk yaa! sekali lagi selamat ulang tahun mylovvvvv';
-  '- qaesyaar\n' +
-  '16/10/25';
+  const MESSAGE  =
+    'selamattt ulang tahunn sayangkuu cintaakuu\n\n' +
+    'maaf ya kado yang ini terlambat, aku bikinnya susah banget loo (meskipun di bantu gpt sih hehe) ' +
+    'hampir dua mingguan ak bikinnyah, soalnyaa jadwal ak padet gegara lomba jagoss. ' +
+    'kemarin aku ngerasa ada yang kurang aja si pas ngasih kado kamu, ' +
+    'terus aku kepikiran deh buat kaya gini biar kesimpenn terus selamanyaaa, ' +
+    'fyi ini ak bikinnyah pakai pc sama laptop sekolah hehe soalnya laptop ak kentank, ' +
+    'hehe semoga kamu sukakk yaa! sekali lagi selamat ulang tahun mylovvvvv\n\n' +
+    '- qaesyaar\n' +
+    '16/10/25';
 
   // Typewriter effect
-  function typewriter(el, text, speed, cb) {
+  function typewriter(el, text, speed) {
     let i = 0;
-    el.textContent = '';
-    const lines = text.split('\n');
-    let flat = '';
-    lines.forEach((l, idx) => { flat += l + (idx < lines.length - 1 ? '\n' : ''); });
-    const chars = flat.split('');
+    el.innerHTML = '';
+    const chars = text.split('');
     function next() {
-      if (i >= chars.length) { if (cb) cb(); return; }
+      if (i >= chars.length) return;
       const ch = chars[i++];
-      if (ch === '\n') {
-        el.appendChild(document.createElement('br'));
-      } else {
-        el.appendChild(document.createTextNode(ch));
-      }
+      if (ch === '\n') el.appendChild(document.createElement('br'));
+      else el.appendChild(document.createTextNode(ch));
       setTimeout(next, speed);
     }
     next();
@@ -33,7 +31,6 @@ const MESSAGE =
   function showLetter() {
     const gate   = document.getElementById('gate');
     const letter = document.getElementById('letter');
-
     gate.classList.add('fade-out');
     setTimeout(() => {
       gate.style.display = 'none';
@@ -48,8 +45,9 @@ const MESSAGE =
     letter.classList.add('fade-out');
     setTimeout(() => {
       letter.style.display = 'none';
-      $('#loading').addClass('hidden');
+      // Tampilkan scene dulu, baru init Turn.js
       document.querySelector('.scene').style.visibility = 'visible';
+      initFlipbook();
     }, 600);
   }
 
@@ -68,7 +66,7 @@ const MESSAGE =
     }
   }
 
-  // 6 kotak: auto focus next, backspace, auto submit
+  // 6 kotak PIN
   const boxes = document.querySelectorAll('.gate-box');
   boxes.forEach((box, i) => {
     box.addEventListener('input', () => {
@@ -105,15 +103,13 @@ const MESSAGE =
   document.getElementById('letterBtn').addEventListener('click', openFlipbook);
 
   // ── Flipbook ──
-  // Total halaman: 1 dummy + 12 spread × 2 = 25
-  // Spread konten: hal 2-23, spread looping: hal 24-25
-  const FIRST  = 2;   // halaman pertama konten (kiri=11Blk, kanan=1Dpn)
-  const LAST   = 24;  // halaman pertama spread looping terakhir
+  const book  = $('#book');
+  const FIRST = 2;
+  const LAST  = 24;
 
   function bookSize() {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    // Selalu double: lebar = 2 halaman, tinggi = rasio A5
     const maxW = Math.round(vw * 0.96);
     const maxH = Math.round(vh * 0.88);
     const byH  = Math.round(maxH / 1.414) * 2;
@@ -123,12 +119,7 @@ const MESSAGE =
   }
 
   let initialized = false;
-  const preload   = new Image();
-  preload.onload  = preload.onerror = init;
-  preload.src     = 'page/11 Belakang.png';
-  setTimeout(init, 5000);
-
-  function init() {
+  function initFlipbook() {
     if (initialized) return;
     initialized = true;
 
@@ -148,28 +139,22 @@ const MESSAGE =
 
     $('#loading').addClass('hidden');
 
-    // Update tombol prev/next berdasarkan halaman aktif
     function updateButtons(page) {
       $('#btnPrev').toggleClass('hidden', page <= FIRST);
       $('#btnNext').toggleClass('hidden', page >= LAST);
     }
-    updateButtons(FIRST); // state awal
+    updateButtons(FIRST);
 
-    // Looping: lompat instan tanpa animasi
     let isLooping = false;
     book.bind('turned', function (e, page) {
       updateButtons(page);
       if (isLooping) { isLooping = false; return; }
-
-      // Sampai spread looping terakhir → lompat ke spread pertama
       if (page >= LAST) {
         isLooping = true;
         book.turn('animationDuration', 0);
         book.turn('page', FIRST);
         setTimeout(() => book.turn('animationDuration', 900), 50);
-      }
-      // Mundur melewati spread pertama → lompat ke spread looping terakhir
-      else if (page < FIRST) {
+      } else if (page < FIRST) {
         isLooping = true;
         book.turn('animationDuration', 0);
         book.turn('page', LAST);
