@@ -101,6 +101,9 @@ $(function () {
 
   document.getElementById('gateBtn').addEventListener('click', checkPassword);
   document.getElementById('letterBtn').addEventListener('click', openFlipbook);
+  document.getElementById('spotifyClose').addEventListener('click', () => {
+    document.getElementById('spotifyPopup').classList.remove('show');
+  });
 
   // ── Flipbook ──
   const book  = $('#book');
@@ -142,6 +145,9 @@ $(function () {
     function updateButtons(page) {
       $('#btnPrev').toggleClass('hidden', page <= FIRST);
       $('#btnNext').toggleClass('hidden', page >= LAST);
+      // Spotify popup muncul saat spread 7 (hal 14-15) aktif
+      const onSpread = (page === 14 || page === 15);
+      $('#spotifyPopup').toggleClass('show', onSpread);
     }
     updateButtons(FIRST);
 
