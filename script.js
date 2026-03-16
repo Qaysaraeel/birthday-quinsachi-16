@@ -6,18 +6,21 @@ $(function () {
   const FIRST  = 2;   // halaman pertama konten (kiri=11Blk, kanan=1Dpn)
   const LAST   = 24;  // halaman pertama spread looping terakhir
 
+  const isMobile = () => window.innerWidth <= 540;
+
   function bookSize() {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    if (vw <= 540) {
-      const w = Math.round(vw * 0.82);
-      return { w, h: Math.round(w * 1.414) };
+    if (isMobile()) {
+      const w = Math.round(vw * 0.88);
+      return { w, h: Math.round(w * 1.414), single: true };
     }
     const maxW = Math.min(840, Math.round(vw * 0.88));
     const maxH = Math.round(vh * 0.90);
     const byH  = Math.round(maxH / 1.414) * 2;
     const w    = Math.min(maxW, byH);
-    return { w: w % 2 === 0 ? w : w - 1, h: Math.round((w / 2) * 1.414) };
+    const even = w % 2 === 0 ? w : w - 1;
+    return { w: even, h: Math.round((even / 2) * 1.414), single: false };
   }
 
   let initialized = false;
@@ -40,7 +43,7 @@ $(function () {
       gradients:    true,
       elevation:    60,
       acceleration: true,
-      display:      'double',
+      display:      sz.single ? 'single' : 'double',
       page:         FIRST,
     });
 
@@ -107,6 +110,7 @@ $(function () {
     resizeTimer = setTimeout(() => {
       const s = bookSize();
       book.turn('size', s.w, s.h);
+      book.turn('display', s.single ? 'single' : 'double');
     }, 200);
   });
 
