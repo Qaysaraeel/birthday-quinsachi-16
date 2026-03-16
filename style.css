@@ -147,10 +147,17 @@ html, body {
   .btn-nav { display: none; }
   .spine { display: none; }
   .book-shadow { display: none; }
+
+  .scene {
+    flex-direction: column;
+    gap: 12px;
+  }
+
   .scene::after {
     content: '\2190 geser \2192';
     color: rgba(255,255,255,0.35);
     font-size: 0.75rem;
     letter-spacing: 0.1em;
+    text-align: center;
   }
 }
